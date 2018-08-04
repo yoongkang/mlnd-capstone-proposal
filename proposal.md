@@ -91,7 +91,6 @@ The evaluation metric will be the same as the Kaggle competition's metric, which
 
 
 ### Project Design
-_(approx. 1 page)_
 
 These are the phases that I will use to find a solution for the given problem:
 
