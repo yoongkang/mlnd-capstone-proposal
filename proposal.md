@@ -68,7 +68,7 @@ The output will be in the format expected by Kaggle, which is a CSV file with th
 
 Note that this is the same as the training input, except without `comment_text`.
 
-Apart from the column `id`, each column should contain the model's prediction that it falls under this class. This will be a value between 0.0 and 1.0, where the higher value means more likely. Thus, this is a "multi-class" regression problem.
+Apart from the column `id`, each column should contain the model's prediction that it falls under this class. This will be a value between 0.0 and 1.0, where the higher value means more likely. Thus, this is a multi output regression problem.
 
 The solution is quantifiable by taking the difference between these probabilities with the ground truth. This score will be evaluated under the metric that will be described later in this proposal.
 
