@@ -45,8 +45,11 @@ The input is in CSV format with the following columns:
 "identity_hate"
 ```
 
-Jigsaw and Kaggle have also provided the test set. As this is a completed competition, they have also provided one with labels, so that submissions are unnecessary to find out the score.
+The dimensionality of the input is 160k rows with 8 columns.
 
+Jigsaw and Kaggle have also provided the test set with dimensionality 153k rows with 2 columns (where the columns are `id` and the `comment_text`).
+
+As this is a completed competition, they have also provided a test set with labels, so that submissions are unnecessary to find out the score.
 
 
 ### Solution Statement
@@ -74,13 +77,7 @@ This will be provided as Jupyter notebook(s), so that it is replicable.
 
 ### Benchmark Model
 
-I plan to use a number of benchmark models to compare my model with. Firstly, we will look at "weak" baselines:
-
-* Randomly generated probabilities
-* `0.5` for each column (equal probability for all)
-* Naive Bayes Classifier (without ngrams)
-
-I will also use one strong baseline. This is the top voted kernel on Kaggle for this competition:
+The benchmark model I will be using to compare my model with is the top voted kernel on Kaggle for this competition:
 
 * NB-SVM strong baseline (https://www.kaggle.com/jhoward/nb-svm-strong-linear-baseline)
 
@@ -110,15 +107,28 @@ The EDA phase should inform what feature engineering might be required.
 
 **Model and hyperparameter selection**
 
-Kaggle has given us a training set and a test set. I will break the training set into training + validation sets. This is to tune hyperparameters. If needed, I will split the training set into three (training + validation + test), which will avoid accidentally overfitting to the test set (e.g by submitting and refining the model).
+Kaggle has given us a training set and a test set. I will break the training set into training + validation sets. This is to tune hyperparameters.
+
+If needed, I will split the training set into three (training + validation + test), which will avoid accidentally overfitting to the test set (e.g by submitting and refining the model).
 
 As we seem to have enough data, I might skip cross validation techniques, but I am not ruling it out right now.
 
-The models I will look at will be NB-SVM (as described in the Benchmark Model section) with my own improvements, as well as deep neural networks.
+In machine learning, it is best to select a validation set that is as similar as possible to the test set, so there will also be a step to calibrate my validation set. For example, the dataset may be unbalanced, so it may be beneficial to maintain that same balance in the validation and test set.
+
+At this stage, I plan look at two types of models. The first one I will look at will be NB-SVM (as described in the Benchmark Model section) with my own improvements. As it takes a shorter time to train NB-SVM models, this will be what I might use to see the affect of any feature engineering I do.
+
+The second type of model I will explore is a deep neural network. There is a wide range of things I can try, but these two will be the first things I will try:
+
+* A neural network with 1-3 hidden fully connected layers
+* A bidirectional LSTM with 1-3 connected layers.
+
+More work will need to be done to determine how many layers to choose.
 
 **Model refinement**
 
-I will make further refinements to the model. For example, for deep neural networks I may experiment with dropout, early stopping, LSTM, and various activation functions.
+I will make further refinements to the model. For example, for deep neural networks I may experiment with dropout, early stopping, and various activation functions for hidden layers (relu, tanh, etc.).
+
+I might also experiment with the architecture. One path that I might go down is to replace LSTM with GRU units, as it has been shown empirically to produce good results.
 
 **Report**
 
